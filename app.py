@@ -1,8 +1,4 @@
-import json
-import http.client
-import ssl
-import re
-import sys
+import json, ssl, re, sys, http.client
 
 
 def extract_number(str):
