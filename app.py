@@ -1,4 +1,5 @@
-import json, ssl, re, sys, http.client
+import json, ssl, re, sys
+import http.client
 
 
 def extract_number(str):
@@ -44,6 +45,9 @@ def next_version(package_name):
 
 
 if __name__ == '__main__':
-    # print command line arguments
-    for arg in sys.argv[1:]:
-        print(str(next_version(arg)))
+    if len(sys.argv[1:]) == 0:
+        print("Not <package-name> provided")
+    else:
+        # print command line arguments
+        for arg in sys.argv[1:]:
+            print(str(next_version(arg)))
