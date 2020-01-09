@@ -16,6 +16,8 @@ def version_to_number(version):
 
 
 def resolve_version(package_name):
+    print("package_name: %s" % package_name)
+    
     conn = http.client.HTTPSConnection('api.nuget.org', context=ssl._create_unverified_context())
     conn.request("GET", "/v3-flatcontainer/%s/index.json" % package_name)
     response = conn.getresponse()
