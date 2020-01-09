@@ -22,8 +22,8 @@ def resolve_version(package_name):
     bytes = response.readlines()
     conn.close()
 
+    print("response: %s" % bytes)
     my_json_str = ''.join([x.decode('utf-8') for x in bytes])
-    print("response: %s" % my_json_str)
 
     json_result = json.loads(my_json_str)
     versions = json_result['versions']
