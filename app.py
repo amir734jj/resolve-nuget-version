@@ -1,9 +1,9 @@
-import json, ssl, re, sys
+import json, ssl, re, sys, getopt
 import http.client
 
 
-def extract_number(str):
-    result = [int(s) for s in str.split() if str.isdigit()]
+def extract_number(s):
+    result = [int(s) for s in s.split() if s.isdigit()]
     if len(result) > 0:
         return result[0]
     else:
@@ -16,15 +16,15 @@ def version_to_number(version):
 
 
 def resolve_version(package_name):
-    print("package_name>>: %s" % package_name)
-    
+    # print("package_name>>: %s" % package_name)
+
     conn = http.client.HTTPSConnection('api.nuget.org', context=ssl._create_unverified_context())
     conn.request("GET", "/v3-flatcontainer/%s/index.json" % package_name)
     response = conn.getresponse()
     bytes = response.readlines()
     conn.close()
 
-    print("response: %s" % bytes)
+    # print("response: %s" % bytes)
     my_json_str = ''.join([x.decode('utf-8') for x in bytes])
 
     json_result = json.loads(my_json_str)
@@ -49,6 +49,10 @@ def next_version(package_name):
 
 
 if __name__ == '__main__':
+    opts, args = getopt.getopt(sys.argv, "v", [])
+    print(opts)
+    print(args)
+
     if len(sys.argv[1:]) == 0:
         print("No <package-name> provided")
     else:
